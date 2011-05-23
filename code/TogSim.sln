@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BADBC0B4-82F2-4EEA-B82C-2C9F9D717DE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noea.TogSim.Gui.GDI", "TogSim\Noea.TogSim.Gui.GDI.csproj", "{7792FB92-1185-4D66-8AB5-DC86AFDC1084}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noea.TogSim.Model", "Noea.TogSim.Model\Noea.TogSim.Model.csproj", "{2272F063-A4E3-4B1D-9862-4733E59D030D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7792FB92-1185-4D66-8AB5-DC86AFDC1084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7792FB92-1185-4D66-8AB5-DC86AFDC1084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7792FB92-1185-4D66-8AB5-DC86AFDC1084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7792FB92-1185-4D66-8AB5-DC86AFDC1084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2272F063-A4E3-4B1D-9862-4733E59D030D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2272F063-A4E3-4B1D-9862-4733E59D030D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2272F063-A4E3-4B1D-9862-4733E59D030D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2272F063-A4E3-4B1D-9862-4733E59D030D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -517,7 +517,15 @@ namespace Noea.TogSim.Gui.GDI
             //Console.WriteLine("ChangeHandler "+DateTime.Now+ " train(" + t.Id + ") er på spor: " + t.CurrentTrack.Id);
             if (Track.InvokeRequired)
             {
-                Track.Invoke(new MethodInvoker(this.UpdateLabels));
+                try
+                {
+                    Track.Invoke(new MethodInvoker(this.UpdateLabels));
+                }
+                catch (Exception)
+                {
+                    
+                    throw;
+                }
             }
             else
             {

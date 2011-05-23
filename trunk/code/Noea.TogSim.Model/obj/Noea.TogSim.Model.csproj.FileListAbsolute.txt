@@ -1,0 +1,8 @@
+C:\Data\dm\dm61\Tema3\code\Noea.TogSim.Model\bin\Debug\Noea.TogSim.Model.dll
+C:\Data\dm\dm61\Tema3\code\Noea.TogSim.Model\bin\Debug\Noea.TogSim.Model.pdb
+C:\Data\dm\dm61\Tema3\code\Noea.TogSim.Model\obj\Debug\Noea.TogSim.Model.dll
+C:\Data\dm\dm61\Tema3\code\Noea.TogSim.Model\obj\Debug\Noea.TogSim.Model.pdb
+C:\Data\dm\dm61\3sem\Tema3\code\Noea.TogSim.Model\bin\Debug\Noea.TogSim.Model.dll
+C:\Data\dm\dm61\3sem\Tema3\code\Noea.TogSim.Model\bin\Debug\Noea.TogSim.Model.pdb
+C:\Data\dm\dm61\3sem\Tema3\code\Noea.TogSim.Model\obj\Debug\Noea.TogSim.Model.dll
+C:\Data\dm\dm61\3sem\Tema3\code\Noea.TogSim.Model\obj\Debug\Noea.TogSim.Model.pdb

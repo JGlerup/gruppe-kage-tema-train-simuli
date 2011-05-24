@@ -10,6 +10,7 @@ namespace Noea.TogSim.Model
         bool _blocked;
         double _length;
         double _angle;
+        private bool _isPartOfSwitchTrack;
         ITrack _nextTrack;
         ITrack _previousTrack;
         ITrainSet _train;
@@ -49,6 +50,7 @@ namespace Noea.TogSim.Model
             _angle = angle;
             _nextTrack = next;
             _previousTrack = prev;
+            _isPartOfSwitchTrack = false;
             _train = null;
             _signals = new ArrayList();
             _sensors = new ArrayList();
@@ -235,6 +237,13 @@ namespace Noea.TogSim.Model
         public event TrackChangeHandler OnChange;
 
         #endregion
+
+
+        public bool IsPartOfSwitchTrack
+        {
+            get { return _isPartOfSwitchTrack; }
+            set { _isPartOfSwitchTrack = value; }
+        }
     }
     public class SwitchTrack : SimpleTrack, ITrack
     {
@@ -294,7 +303,7 @@ namespace Noea.TogSim.Model
                 }
                 else
                 {
-                    throw (new Exception("Track is blocked. Direction is not changed"));
+//                    throw (new Exception("Track is blocked. Direction is not changed"));
                 }
             }
         }

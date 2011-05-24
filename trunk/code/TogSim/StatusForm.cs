@@ -523,8 +523,8 @@ namespace Noea.TogSim.Gui.GDI
                 }
                 catch (Exception)
                 {
-                    
-                    throw;
+
+                    Console.WriteLine("Fejl");
                 }
             }
             else

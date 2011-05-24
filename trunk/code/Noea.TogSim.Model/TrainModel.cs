@@ -22,8 +22,8 @@ namespace Noea.TogSim.Model
             _trains.Add(train);
             train = GenerateTestTrain(3, "My Train", 4, 10, _startTrack.Next.Next.Next.Next.Next);
             _trains.Add(train);
-            //train = GenerateTestTrain(2, "Tog 2", 3, 10, _startTrack.Next.Next.Next.Next);
-            //_trains.Add(train);
+            train = GenerateTestTrain(2, "Tog 2", 3, 40, _startTrack.Next.Next.Next.Next.Next.Next.Next.Next);
+            _trains.Add(train);
 
             /**** The dispatcher is instansed here *****/
             _trainDispatcher = new FixedTimeDispatch(_trains);
@@ -52,48 +52,60 @@ namespace Noea.TogSim.Model
 
         private ITrack GenerateTestRailroad()
         {
-            SwitchTrack start = new SwitchTrack(0, false, 50, 30, null, null, SwitchTrack.Left);
+//            SwitchTrack start = new SwitchTrack(0, false, 50, 30, null, null, SwitchTrack.Left);
+//
+//            ITrack prev = start;
+//            ITrack next = null;
+//            for (int i = 1; i < 12; i++)
+//            {
+//                next = new SimpleTrack(i, false, 50, 30, null, prev);
+//                prev.Next = next;
+//                if (prev == start) start.LeftTrack = next;
+//                prev = next;
+//            }
+//            
+//            next.Next = start;
+//            start.Previous = next;
+//            start.TrunkTrack = next;
+//
+//            _startTrack = start;
+//
+//            ITrack right = new SimpleTrack(12, false, 50, null, start);
+//            prev = right;
+//            for (int i = 13; i < 20; i++)
+//            {
+//                next = new SimpleTrack(i, false, 50, -30, null, prev);
+//                prev.Next = next;
+//                prev = next;
+//            }
+//            start.RightTrack = right;
+//            start.LeftTrack = start.Next;
+//            ISignal signal = new SimpleSignal(1, SimpleSignal.Go);
+//            start.RightTrack.Next.Signals.Add(signal);
+//            SwitchSensor sensor = new SwitchSensor(1, false);
+//            _sensors.Add(sensor);
+//            SimpleSignalControl sc = new SimpleSignalControl((SimpleSignal)signal);
+//            sensor.OnChange += sc.ActOnSensor;
+//            signal = new OneViewSignal(2, SimpleSignal.Go, start.LeftTrack.Next.Next.Next);
+//            start.LeftTrack.Next.Next.Signals.Add(signal);
+//
+//            sensor = new SwitchSensor(2, false);
+//            sc = new SimpleSignalControl((SimpleSignal)signal);
+//            sensor.OnChange += sc.ActOnSensor;
+//            start.LeftTrack.Next.Next.Next.Next.Sensors.Add(sensor);
+//            return start;
+            return null;
+        }
 
-            ITrack prev = start;
-            ITrack next = null;
-            for (int i = 1; i < 12; i++)
-            {
-                next = new SimpleTrack(i, false, 50, 30, null, prev);
-                prev.Next = next;
-                if (prev == start) start.LeftTrack = next;
-                prev = next;
-            }
-            
-            next.Next = start;
-            start.Previous = next;
-            start.TrunkTrack = next;
+        private ISignal GenerateSignals(ITrack switchTrack)
+        {
+            return null;
+        }
 
-            _startTrack = start;
-
-            ITrack right = new SimpleTrack(12, false, 20, null, start);
-            prev = right;
-            for (int i = 13; i < 20; i++)
-            {
-                next = new SimpleTrack(i, false, 50, -30, null, prev);
-                prev.Next = next;
-                prev = next;
-            }
-            start.RightTrack = right;
-            start.LeftTrack = start.Next;
-            ISignal signal = new SimpleSignal(1, SimpleSignal.Go);
-            start.RightTrack.Next.Signals.Add(signal);
-            SwitchSensor sensor = new SwitchSensor(1, false);
-            _sensors.Add(sensor);
-            SimpleSignalControl sc = new SimpleSignalControl((SimpleSignal)signal);
-            sensor.OnChange += sc.ActOnSensor;
-            signal = new OneViewSignal(2, SimpleSignal.Go, start.LeftTrack.Next.Next.Next);
-            start.LeftTrack.Next.Next.Signals.Add(signal);
-
-            sensor = new SwitchSensor(2, false);
-            sc = new SimpleSignalControl((SimpleSignal)signal);
-            sensor.OnChange += sc.ActOnSensor;
-            start.LeftTrack.Next.Next.Next.Next.Sensors.Add(sensor);
-            return start;
+        private ISensor GenerateSensors(ITrack switchTrack)
+        {
+            ISensor sensor = new SwitchSensor(switchTrack.Id, false);
+            return null;
         }
 
         public void Dispose()

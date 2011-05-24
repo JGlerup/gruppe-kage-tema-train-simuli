@@ -165,6 +165,10 @@ namespace Noea.TogSim.Model
         /// </summary>
         double Angle { get; set;}
         /// <summary>
+        /// Detemine whether a track is a part of a switchtrack
+        /// </summary>
+        bool IsPartOfSwitchTrack { get; set; }
+        /// <summary>
         ///  Next track. Undependent of the trains driving direction. For blind ends it is null. 
         /// </summary>
         ITrack Next { get; set;}

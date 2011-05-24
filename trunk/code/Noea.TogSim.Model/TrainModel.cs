@@ -124,19 +124,7 @@ namespace Noea.TogSim.Model
 
             start.RightTrack = right;
             start.LeftTrack = start.Next;
-            //ISignal signal = new SimpleSignal(1, SimpleSignal.Go);
-            //start.RightTrack.Next.Signals.Add(signal);
-            //SwitchSensor sensor = new SwitchSensor(1, false);
-            //_sensors.Add(sensor);
-            //SimpleSignalControl sc = new SimpleSignalControl((SimpleSignal)signal);
-            //sensor.OnChange += sc.ActOnSensor;
-            //signal = new OneViewSignal(2, SimpleSignal.Go, start.LeftTrack.Next.Next.Next);
-            //start.LeftTrack.Next.Next.Signals.Add(signal);
-
-            //sensor = new SwitchSensor(2, false);
-            //sc = new SimpleSignalControl((SimpleSignal)signal);
-            //sensor.OnChange += sc.ActOnSensor;
-            //start.LeftTrack.Next.Next.Next.Next.Sensors.Add(sensor);
+            
             return start;
 //            SwitchTrack start = new SwitchTrack(0, false, 50, 30, null, null, SwitchTrack.Left);
 //
@@ -182,12 +170,25 @@ namespace Noea.TogSim.Model
 //            return start;
         }
 
+        private void GenerateSignalControl()
         private void GenerateSignals(SwitchTrack switchTrack)
         {
-            ;
+            if (!switchTrack.RightTrack.Next.Equals(null) && !switchTrack.RightTrack.Next.IsPartOfSwitchTrack && switchTrack.RightTrack.Next.Signals.Count == 0)
+            GenerateSimpleTrackSensor(switchTrack.RightTrack.Next);
+            if (!switchTrack.LeftTrack.Next.Equals(null) && !switchTrack.LeftTrack.Next.IsPartOfSwitchTrack && switchTrack.LeftTrack.Next.Signals.Count == 0)
+            GenerateSimpleTrackSignals(switchTrack.LeftTrack.Next);
         }
 
-
+        private void GenerateSimpleTrackSignals(ITrack simpleTrack)
+        {
+            ISignal signal = new OneViewSignal(simpleTrack.Id, SimpleSignal.Go, simpleTrack.Next);
+            simpleTrack.Signals.Add(signal);
+            if (!simpleTrack.Next.Equals(null) && !simpleTrack.Next.IsPartOfSwitchTrack)
+            {
+                simpleTrack = simpleTrack.Next;
+                GenerateSimpleTrackSignals(simpleTrack);
+            }
+        }
 
         private void GenerateSensors(SwitchTrack switchTrack)
         {
@@ -207,7 +208,6 @@ namespace Noea.TogSim.Model
         private void GenerateSimpleTrackSensor(ITrack simpleTrack)
         {
             ISensor sensor = new SwitchSensor(simpleTrack.Id, false);
-            SimpleSignalControl sc = new SimpleSignalControl((SimpleSignal)Signal);
             simpleTrack.Sensors.Add(sensor);
             if (!simpleTrack.Next.Equals(null) && !simpleTrack.Next.IsPartOfSwitchTrack)
             {

@@ -134,6 +134,49 @@ namespace Noea.TogSim.Model
 
 
             return start;
+            
+            
+            //            SwitchTrack start = new SwitchTrack(0, false, 50, 30, null, null, SwitchTrack.Left);
+            //
+            //            ITrack prev = start;
+            //            ITrack next = null;
+            //            for (int i = 1; i < 12; i++)
+            //            {
+            //                next = new SimpleTrack(i, false, 50, 30, null, prev);
+            //                prev.Next = next;
+            //                if (prev == start) start.LeftTrack = next;
+            //                prev = next;
+            //            }
+            //            
+            //            next.Next = start;
+            //            start.Previous = next;
+            //            start.TrunkTrack = next;
+            //
+            //            _startTrack = start;
+            //
+            //            ITrack right = new SimpleTrack(12, false, 50, null, start);
+            //            prev = right;
+            //            for (int i = 13; i < 20; i++)
+            //            {
+            //                next = new SimpleTrack(i, false, 50, -30, null, prev);
+            //                prev.Next = next;
+            //                prev = next;
+            //            }
+            //            start.RightTrack = right;
+            //            start.LeftTrack = start.Next;
+            //            ISignal signal = new SimpleSignal(1, SimpleSignal.Go);
+            //            start.RightTrack.Next.Signals.Add(signal);
+            //            SwitchSensor sensor = new SwitchSensor(1, false);
+            //            _sensors.Add(sensor);
+            //            SimpleSignalControl sc = new SimpleSignalControl((SimpleSignal)signal);
+            //            sensor.OnChange += sc.ActOnSensor;
+            //            signal = new OneViewSignal(2, SimpleSignal.Go, start.LeftTrack.Next.Next.Next);
+            //            start.LeftTrack.Next.Next.Signals.Add(signal);
+            //
+            //            sensor = new SwitchSensor(2, false);
+            //            sc = new SimpleSignalControl((SimpleSignal)signal);
+            //            sensor.OnChange += sc.ActOnSensor;
+            //            start.LeftTrack.Next.Next.Next.Next.Sensors.Add(sensor);
         }
 
         private void GenerateSimpleSignalControl(SwitchTrack st)

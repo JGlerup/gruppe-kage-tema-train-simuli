@@ -124,7 +124,14 @@ namespace Noea.TogSim.Model
 
             start.RightTrack = right;
             start.LeftTrack = start.Next;
-            
+
+            GenerateSensorsAndSignals(start);
+            GenerateSensorsAndSignals(nextOne);
+
+            GenerateSimpleSignalControl(start);
+            GenerateSimpleSignalControl(nextOne);
+
+
             return start;
 //            SwitchTrack start = new SwitchTrack(0, false, 50, 30, null, null, SwitchTrack.Left);
 //
@@ -170,27 +177,127 @@ namespace Noea.TogSim.Model
 //            return start;
         }
 
-        private void GenerateSignalControl()
-        private void GenerateSignals(SwitchTrack switchTrack)
+        private void GenerateSimpleSignalControl(SwitchTrack st)
         {
-            if (!switchTrack.RightTrack.Next.Equals(null) && !switchTrack.RightTrack.Next.IsPartOfSwitchTrack && switchTrack.RightTrack.Next.Signals.Count == 0)
-            GenerateSimpleTrackSensor(switchTrack.RightTrack.Next);
-            if (!switchTrack.LeftTrack.Next.Equals(null) && !switchTrack.LeftTrack.Next.IsPartOfSwitchTrack && switchTrack.LeftTrack.Next.Signals.Count == 0)
-            GenerateSimpleTrackSignals(switchTrack.LeftTrack.Next);
-        }
-
-        private void GenerateSimpleTrackSignals(ITrack simpleTrack)
-        {
-            ISignal signal = new OneViewSignal(simpleTrack.Id, SimpleSignal.Go, simpleTrack.Next);
-            simpleTrack.Signals.Add(signal);
-            if (!simpleTrack.Next.Equals(null) && !simpleTrack.Next.IsPartOfSwitchTrack)
+            if(st.Id == 0)
             {
-                simpleTrack = simpleTrack.Next;
-                GenerateSimpleTrackSignals(simpleTrack);
+                SimpleSignalControl sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], (SimpleSignal)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0]);
+                ISensor sensor = (SwitchSensor)st.TrunkTrack.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 0
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], (SimpleSignal)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0]);
+                sensor = (SwitchSensor)st.RightTrack.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 1
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], (SimpleSignal)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0]);
+                sensor = (SwitchSensor)st.LeftTrack.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 16
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], (SimpleSignal)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0]);
+                sensor = (SwitchSensor)st.RightTrack.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 2
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], (SimpleSignal)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0]);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 3
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 4
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 5
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 6
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 7
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 8
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 9
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 10
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 11
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 12
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 13
+          
+
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], (SimpleSignal)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0]);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 17
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], (SimpleSignal)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0]);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 18
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 19
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 20
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 21
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 22
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 23
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 24
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 25
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 26
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 27
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Signals[0], null);
+                sensor = (SwitchSensor)st.LeftTrack.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Next.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 28
+            }
+            if(st.Id == 15)
+            {
+                SimpleSignalControl sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Previous.Signals[0], (SimpleSignal)st.LeftTrack.Previous.Signals[0]);
+                ISensor sensor = (SwitchSensor)st.TrunkTrack.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 15
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Previous.Signals[0], (SimpleSignal)st.LeftTrack.Previous.Signals[0]);
+                sensor = (SwitchSensor)st.RightTrack.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 14
+                sc = new SimpleSignalControl((SimpleSignal)st.RightTrack.Previous.Signals[0], (SimpleSignal)st.LeftTrack.Previous.Signals[0]);
+                sensor = (SwitchSensor)st.LeftTrack.Sensors[0];
+                sensor.OnChange += sc.ActOnSensor;// Track 29
             }
         }
+//        private void GenerateSignals(SwitchTrack switchTrack)
+//        {
+//            if (!switchTrack.RightTrack.Next.Equals(null) && !switchTrack.RightTrack.Next.IsPartOfSwitchTrack && switchTrack.RightTrack.Next.Signals.Count == 0)
+//            GenerateSimpleTrackSensor(switchTrack.RightTrack.Next);
+//            if (!switchTrack.LeftTrack.Next.Equals(null) && !switchTrack.LeftTrack.Next.IsPartOfSwitchTrack && switchTrack.LeftTrack.Next.Signals.Count == 0)
+//            GenerateSimpleTrackSignals(switchTrack.LeftTrack.Next);
+//        }
 
-        private void GenerateSensors(SwitchTrack switchTrack)
+//        private void GenerateSimpleTrackSignals(ITrack simpleTrack)
+//        {
+//            ISignal signal = new OneViewSignal(simpleTrack.Id, SimpleSignal.Go, simpleTrack.Next);
+//            simpleTrack.Signals.Add(signal);
+//            if (!simpleTrack.Next.Equals(null) && !simpleTrack.Next.IsPartOfSwitchTrack)
+//            {
+//                simpleTrack = simpleTrack.Next;
+//                GenerateSimpleTrackSignals(simpleTrack);
+//            }
+//        }
+
+        private void GenerateSensorsAndSignals(SwitchTrack switchTrack)
         {
             ISensor sensor1 = new SwitchSensor(switchTrack.TrunkTrack.Id, false);
             ISensor sensor2 = new SwitchSensor(switchTrack.RightTrack.Id, false);
@@ -199,20 +306,22 @@ namespace Noea.TogSim.Model
             switchTrack.TrunkTrack.Sensors.Add(sensor2);
             switchTrack.TrunkTrack.Sensors.Add(sensor3);
 
-            if (!switchTrack.RightTrack.Next.Equals(null) && !switchTrack.RightTrack.Next.IsPartOfSwitchTrack && switchTrack.RightTrack.Next.Sensors.Count == 0)
-                GenerateSimpleTrackSensor(switchTrack.RightTrack.Next);
-            if (!switchTrack.LeftTrack.Next.Equals(null) && !switchTrack.LeftTrack.Next.IsPartOfSwitchTrack && switchTrack.LeftTrack.Next.Sensors.Count == 0)
-                GenerateSimpleTrackSensor(switchTrack.LeftTrack.Next);
+            if (!switchTrack.RightTrack.Next.Equals(null) || !switchTrack.RightTrack.Next.IsPartOfSwitchTrack || switchTrack.RightTrack.Next.Sensors.Count == 0)
+                GenerateSimpleTrackSensorAndSignal(switchTrack.RightTrack.Next);
+            if (!switchTrack.LeftTrack.Next.Equals(null) || !switchTrack.LeftTrack.Next.IsPartOfSwitchTrack || switchTrack.LeftTrack.Next.Sensors.Count == 0)
+                GenerateSimpleTrackSensorAndSignal(switchTrack.LeftTrack.Next);
         }
 
-        private void GenerateSimpleTrackSensor(ITrack simpleTrack)
+        private void GenerateSimpleTrackSensorAndSignal(ITrack simpleTrack)
         {
             ISensor sensor = new SwitchSensor(simpleTrack.Id, false);
+            ISignal signal = new OneViewSignal(simpleTrack.Id, SimpleSignal.Go, simpleTrack.Next);
             simpleTrack.Sensors.Add(sensor);
-            if (!simpleTrack.Next.Equals(null) && !simpleTrack.Next.IsPartOfSwitchTrack)
+            simpleTrack.Signals.Add(signal);
+            if (simpleTrack.Next != null && !simpleTrack.Next.IsPartOfSwitchTrack)
             {
                 simpleTrack = simpleTrack.Next;
-                GenerateSimpleTrackSensor(simpleTrack);
+                GenerateSimpleTrackSensorAndSignal(simpleTrack);
             }
         }
 

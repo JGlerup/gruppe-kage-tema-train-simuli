@@ -258,20 +258,25 @@ namespace Noea.TogSim.Model
 
     public class SimpleSignalControl
     {
-        SimpleSignal _signal;
-        public SimpleSignalControl(SimpleSignal s)
+        SimpleSignal _signal1;
+        private SimpleSignal _signal2;
+
+        public SimpleSignalControl(SimpleSignal s1, SimpleSignal s2)
         {
-            _signal = s;
+            _signal1 = s1;
+            _signal2 = s2;
         }
         public void ActOnSensor(ISensor sensor, ISensorEventArgs args)
         {
             if ((bool)args.NewValue)
             {
-                _signal.SetStop();
+                _signal1.SetStop();
+                _signal2.SetStop();
             }
             else
             {
-                _signal.SetGo();
+                _signal1.SetGo();
+                _signal2.SetGo();
             }
         }
     }

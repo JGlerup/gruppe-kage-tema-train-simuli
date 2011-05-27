@@ -350,25 +350,25 @@ namespace Noea.TogSim.Model
                 }
             }
         }
-        //public override ITrack Previous
-        //{
-        //    get
-        //    {
-        //        if (_previous == TrunkTrack) return _previous;
-        //        if (_direction == 0)
-        //        {
-        //            return RightTrack;
-        //        }
-        //        else
-        //        {
-        //            return LeftTrack;
-        //        }
-        //    }
-        //    set
-        //    { // Handle as a simple track
-        //        _previous = value;
-        //    }
-        //}
+        public override ITrack Previous
+        {
+            get
+            {
+                if (_previous == TrunkTrack) return _previous;
+                if (_direction == 0)
+                {
+                    return RightTrack;
+                }
+                else
+                {
+                    return LeftTrack;
+                }
+            }
+            set
+            { // Handle as a simple track
+                _previous = value;
+            }
+        }
         public override ITrack GetNext(ITrack previousTrack)
         {
             //Console.WriteLine("id: {0}: TrunkTrack={1} og previousTrack={2}", this.Id, this.TrunkTrack.Id, previousTrack.Id);

@@ -9,6 +9,8 @@ namespace Noea.TogSim.Model
 
         int _id;
 
+        public Signal(){ }
+
         public Signal(int id)
         {
             _id = id;
@@ -75,6 +77,8 @@ namespace Noea.TogSim.Model
         static ISignalState _goState = new LightSignalState(0, "Go", "green");
         static ISignalState _stopState = new LightSignalState(1, "Stop", "red");
         static ISignalState _waitState = new LightSignalState(2, "Wait", "yellow", true);
+
+        public SimpleSignal(){ }
 
         public SimpleSignal(int Id, ISignalState state)
             : base(Id)
@@ -266,18 +270,44 @@ namespace Noea.TogSim.Model
             _signal1 = s1;
             _signal2 = s2;
         }
+
         public void ActOnSensor(ISensor sensor, ISensorEventArgs args)
         {
-            if ((bool)args.NewValue)
-            {
-                _signal1.SetStop();
-                _signal2.SetStop();
-            }
-            else
-            {
-                _signal1.SetGo();
-                _signal2.SetGo();
-            }
+//            if (_signal1.AssociatedSignal.Id == -1)
+//            {
+//                if ((bool) args.NewValue)
+//                {
+//                    _signal2.SetStop();
+//                }
+//                else
+//                {
+//                    _signal2.SetGo();
+//                }
+//            }
+//            if (_signal2.AssociatedSignal.Id  == -1)
+//            {
+                if ((bool) args.NewValue)
+                {
+                    _signal1.SetStop();
+                }
+                else
+                {
+                    _signal1.SetGo();
+                }
+//            }
+//            else
+//            {
+//                if ((bool) args.NewValue)
+//                {
+//                    _signal1.SetStop();
+//                    _signal2.SetStop();
+//                }
+//                else
+//                {
+//                    _signal1.SetGo();
+//                    _signal2.SetGo();
+//                }
+//            }
         }
     }
 

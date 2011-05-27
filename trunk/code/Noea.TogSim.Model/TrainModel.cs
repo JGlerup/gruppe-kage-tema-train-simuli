@@ -53,6 +53,7 @@ namespace Noea.TogSim.Model
         private ITrack GenerateTestRailroad()
         {
             SwitchTrack start = new SwitchTrack(0, false, 50, 0, null, null, SwitchTrack.Left);
+            start.IsPartOfSwitchTrack = true;
 
             ITrack prev = start;
             ITrack next = null;
@@ -60,6 +61,7 @@ namespace Noea.TogSim.Model
             {
                 next = new SimpleTrack(i, false, 50, 30, null, prev);
                 prev.Next = next;
+                if (i == 1) next.IsPartOfSwitchTrack = true;
                 if (prev == start) start.LeftTrack = next;
                 prev = next;
             }
@@ -68,22 +70,36 @@ namespace Noea.TogSim.Model
             {
                 next = new SimpleTrack(i, false, 50, 0, null, prev);
                 prev.Next = next;
-                if (prev == start) start.LeftTrack = next;
                 prev = next;
             }
 
-            for (int i = 9; i < 15; i++)
+            for (int i = 9; i < 14; i++)
             {
                 next = new SimpleTrack(i, false, 50, 30, null, prev);
                 prev.Next = next;
-                if (prev == start) start.LeftTrack = next;
                 prev = next;
             }
 
-            SwitchTrack nextOne = new SwitchTrack(15, false, 50, 0, start, prev, SwitchTrack.Left);
+            ITrack No14 = new SimpleTrack(14, false, 50, 30, null, prev);
+            No14.IsPartOfSwitchTrack = true;
+            prev.Next = No14;
+            prev = No14;
+
+            SwitchTrack nextOne = new SwitchTrack(15, false, 50, 0, null, null, SwitchTrack.Left);
+            nextOne.IsPartOfSwitchTrack = true;
+            No14.Next = nextOne;
+            nextOne.Previous = No14;
+            nextOne.RightTrack = No14;
             next = nextOne;
-            prev.Next = next;
-            prev = next;
+
+//            prev = nextOne;
+//            for (int i = 16; i < 18; i++)
+//            {
+//                next = new SimpleTrack(i, false, 50, 0, null, prev);
+//                prev.Next = next;
+//                if (prev == nextOne) nextOne.TrunkTrack = next;
+//                prev = next;
+//            }
 
             next.Next = start;
             start.Previous = next;
@@ -91,8 +107,10 @@ namespace Noea.TogSim.Model
             
             _startTrack = start;
 
-            ITrack right = new SimpleTrack(16, false, 50, -30, null, start);
-            prev = right;
+            ITrack No16 = new SimpleTrack(16, false, 50, -30, null, start);
+            No16.IsPartOfSwitchTrack = true;
+            start.RightTrack = No16;
+            prev = No16;
 
             for (int i = 17; i < 22; i++)
             {
@@ -116,15 +134,21 @@ namespace Noea.TogSim.Model
             }
 
             next = new SimpleTrack(29, false, 50, -30, null, prev);
+            next.IsPartOfSwitchTrack = true;
+            next.Next = nextOne;
             prev.Next = next;
             prev = next;
 
-            next.Next = nextOne;
-            start.Previous = nextOne;
-            nextOne.TrunkTrack = next;
+            nextOne.LeftTrack = next;
+            nextOne.Next = start;
+            nextOne.TrunkTrack = start;
+            
 
-            start.RightTrack = right;
+            start.RightTrack = No16;
             start.LeftTrack = start.Next;
+
+            nextOne.RightTrack = No14;
+            nextOne.LeftTrack = prev;
 
             GenerateSensorsAndSignals(start);
             GenerateSensorsAndSignals(nextOne);
@@ -136,47 +160,50 @@ namespace Noea.TogSim.Model
             return start;
             
             
-            //            SwitchTrack start = new SwitchTrack(0, false, 50, 30, null, null, SwitchTrack.Left);
-            //
-            //            ITrack prev = start;
-            //            ITrack next = null;
-            //            for (int i = 1; i < 12; i++)
-            //            {
-            //                next = new SimpleTrack(i, false, 50, 30, null, prev);
-            //                prev.Next = next;
-            //                if (prev == start) start.LeftTrack = next;
-            //                prev = next;
-            //            }
-            //            
-            //            next.Next = start;
-            //            start.Previous = next;
-            //            start.TrunkTrack = next;
-            //
-            //            _startTrack = start;
-            //
-            //            ITrack right = new SimpleTrack(12, false, 50, null, start);
-            //            prev = right;
-            //            for (int i = 13; i < 20; i++)
-            //            {
-            //                next = new SimpleTrack(i, false, 50, -30, null, prev);
-            //                prev.Next = next;
-            //                prev = next;
-            //            }
-            //            start.RightTrack = right;
-            //            start.LeftTrack = start.Next;
-            //            ISignal signal = new SimpleSignal(1, SimpleSignal.Go);
-            //            start.RightTrack.Next.Signals.Add(signal);
-            //            SwitchSensor sensor = new SwitchSensor(1, false);
-            //            _sensors.Add(sensor);
-            //            SimpleSignalControl sc = new SimpleSignalControl((SimpleSignal)signal);
-            //            sensor.OnChange += sc.ActOnSensor;
-            //            signal = new OneViewSignal(2, SimpleSignal.Go, start.LeftTrack.Next.Next.Next);
-            //            start.LeftTrack.Next.Next.Signals.Add(signal);
-            //
-            //            sensor = new SwitchSensor(2, false);
-            //            sc = new SimpleSignalControl((SimpleSignal)signal);
-            //            sensor.OnChange += sc.ActOnSensor;
-            //            start.LeftTrack.Next.Next.Next.Next.Sensors.Add(sensor);
+//                        SwitchTrack start = new SwitchTrack(0, false, 50, 30, null, null, SwitchTrack.Left);
+//            
+//                        ITrack prev = start;
+//                        ITrack next = null;
+//                        for (int i = 1; i < 12; i++)
+//                        {
+//                            next = new SimpleTrack(i, false, 50, 30, null, prev);
+//                            prev.Next = next;
+//                            if (prev == start) start.LeftTrack = next;
+//                            prev = next;
+//                        }
+//                        
+//                        next.Next = start;
+//                        start.Previous = next;
+//                        start.TrunkTrack = next;
+//            
+//                        _startTrack = start;
+//            
+//                        ITrack right = new SimpleTrack(12, false, 50, null, start);
+//                        prev = right;
+//                        for (int i = 13; i < 20; i++)
+//                        {
+//                            next = new SimpleTrack(i, false, 50, -30, null, prev);
+//                            prev.Next = next;
+//                            prev = next;
+//                        }
+//                        start.RightTrack = right;
+//                        start.LeftTrack = start.Next;
+//                        ISignal signal = new SimpleSignal(1, SimpleSignal.Go);
+//                        ISignal NonSignal = new SimpleSignal(-1, SimpleSignal.Go);
+//                        start.RightTrack.Next.Signals.Add(signal);
+//                        SwitchSensor sensor = new SwitchSensor(1, false);
+//                        _sensors.Add(sensor);
+//                        SimpleSignalControl sc = new SimpleSignalControl((SimpleSignal)signal, (SimpleSignal)NonSignal);
+//                        sensor.OnChange += sc.ActOnSensor;
+//                        signal = new OneViewSignal(2, SimpleSignal.Go, start.LeftTrack.Next.Next.Next);
+//                        start.LeftTrack.Next.Next.Signals.Add(signal);
+//            
+//                        sensor = new SwitchSensor(2, false);
+//                        sc = new SimpleSignalControl((SimpleSignal)signal, (SimpleSignal)NonSignal);
+//                        sensor.OnChange += sc.ActOnSensor;
+//                        start.LeftTrack.Next.Next.Next.Next.Sensors.Add(sensor);
+//                        return start;
+
         }
 
         private void GenerateSimpleSignalControl(SwitchTrack st)

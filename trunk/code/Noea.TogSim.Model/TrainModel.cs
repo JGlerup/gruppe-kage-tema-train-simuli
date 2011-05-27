@@ -328,12 +328,12 @@ namespace Noea.TogSim.Model
 
         private void GenerateSensorsAndSignals(SwitchTrack switchTrack)
         {
-            ISensor sensor1 = new SwitchSensor(switchTrack.TrunkTrack.Id, false);
+            ISensor sensor1 = new SwitchSensor(switchTrack.Id, false);
             ISensor sensor2 = new SwitchSensor(switchTrack.RightTrack.Id, false);
             ISensor sensor3 = new SwitchSensor(switchTrack.LeftTrack.Id, false);
-            switchTrack.TrunkTrack.Sensors.Add(sensor1);
-            switchTrack.TrunkTrack.Sensors.Add(sensor2);
-            switchTrack.TrunkTrack.Sensors.Add(sensor3);
+            switchTrack.Sensors.Add(sensor1);
+            switchTrack.RightTrack.Sensors.Add(sensor2);
+            switchTrack.LeftTrack.Sensors.Add(sensor3);
 
             if (!switchTrack.RightTrack.Next.Equals(null) || !switchTrack.RightTrack.Next.IsPartOfSwitchTrack || switchTrack.RightTrack.Next.Sensors.Count == 0)
                 GenerateSimpleTrackSensorAndSignal(switchTrack.RightTrack.Next);

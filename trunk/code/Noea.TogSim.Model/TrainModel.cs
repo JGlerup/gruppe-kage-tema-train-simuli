@@ -61,7 +61,7 @@ namespace Noea.TogSim.Model
             {
                 next = new SimpleTrack(i, false, 50, 30, null, prev);
                 prev.Next = next;
-                if (i == 1) next.IsPartOfSwitchTrack = true;
+                if (next.Id == 1) next.IsPartOfSwitchTrack = true;
                 if (prev == start) start.LeftTrack = next;
                 prev = next;
             }
@@ -335,9 +335,9 @@ namespace Noea.TogSim.Model
             switchTrack.RightTrack.Sensors.Add(sensor2);
             switchTrack.LeftTrack.Sensors.Add(sensor3);
 
-            if (!switchTrack.RightTrack.Next.Equals(null) || !switchTrack.RightTrack.Next.IsPartOfSwitchTrack || switchTrack.RightTrack.Next.Sensors.Count == 0)
+            if (!switchTrack.RightTrack.Next.Equals(null) && !switchTrack.RightTrack.Next.IsPartOfSwitchTrack && switchTrack.RightTrack.Next.Sensors.Count == 0)
                 GenerateSimpleTrackSensorAndSignal(switchTrack.RightTrack.Next);
-            if (!switchTrack.LeftTrack.Next.Equals(null) || !switchTrack.LeftTrack.Next.IsPartOfSwitchTrack || switchTrack.LeftTrack.Next.Sensors.Count == 0)
+            if (!switchTrack.LeftTrack.Next.Equals(null) && !switchTrack.LeftTrack.Next.IsPartOfSwitchTrack && switchTrack.LeftTrack.Next.Sensors.Count == 0)
                 GenerateSimpleTrackSensorAndSignal(switchTrack.LeftTrack.Next);
         }
 
@@ -347,11 +347,12 @@ namespace Noea.TogSim.Model
             ISignal signal = new OneViewSignal(simpleTrack.Id, SimpleSignal.Go, simpleTrack.Next);
             simpleTrack.Sensors.Add(sensor);
             simpleTrack.Signals.Add(signal);
-            if (simpleTrack.Next != null && !simpleTrack.Next.IsPartOfSwitchTrack)
+            if (!simpleTrack.Next.Equals(null) && !simpleTrack.IsPartOfSwitchTrack)
             {
                 simpleTrack = simpleTrack.Next;
-                GenerateSimpleTrackSensorAndSignal(simpleTrack);
+                GenerateSimpleTrackSensorAndSignal(simpleTrack);           
             }
+           
         }
 
         public void Dispose()
